@@ -169,7 +169,7 @@ public class GameScreen implements Screen {
          if (y < 30) {
             y -= 400* Gdx.graphics.getDeltaTime();
          }
-         
+
          // Update raindrop vertical (y) position:
          y -= 200 * Gdx.graphics.getDeltaTime();
          if (y + 64 < 0)
