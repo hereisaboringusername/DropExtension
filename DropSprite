@@ -1,0 +1,76 @@
+ackage com.badlogic.drop;
+
+import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
+
+import java.util.Random;
+
+
+public class DropSprite extends Sprite
+{
+    Texture dropImage;
+    int rotateAngle;
+    int rotateDirection; // -1 if clockwise; 1 if counterclockwise
+
+    public DropSprite()
+    {
+        // load the images for the droplet and the bucket, 64x64 pixels each
+        dropImage = new Texture(Gdx.files.internal("droplet.png"));
+
+        //Q.5: Project 1: Ashley Zingillioglu s1310999
+        int color= ((int)(Math.random()*16777215)) | (0xFF << 24);
+        setColor(255, 0, 0);
+        setColor(51,153,255);
+        setColor(102, 255, 102);
+
+        //3 values for red, 3 values for blue, 3 values for green
+        // ==> A Sprite is not drawable until its texture (region) and bounds are set
+        //     (per https://v.gd/wwEZqD).
+        //     The Sprite(Texture texture) constructor would take care of these details for us, but
+        //     we're not using that constructor.
+
+        // setTexture(dropImage); // incorrect method; use setRegion()
+        setRegion(dropImage);  // inherited from TextureRegion
+        setBounds(0, 0, 64, 64);
+
+        rotateAngle = 5; // degrees, per frame
+
+        // Assign random rotate direction:
+        if (MathUtils.random(0, 1) == 0) // coin flip
+            rotateDirection = 1;
+        else
+            rotateDirection = -1;
+        setScale(0.5f);
+
+        //Q4- Project 1: Ashley Zingillioglu s1310999
+        if (MathUtils.random(1,0) == 0)
+            rotateDirection = -1;
+        else
+            rotateDirection = 1;
+        setScale(0.75f);
+
+        if (MathUtils.random(1,1)== 0)
+            rotateDirection = 1;
+        else
+            rotateDirection = 1;
+        setScale(1f);
+
+    } // end constructor
+
+    private void setColor(int i, int i1, int i2) {
+
+    }
+
+
+    //bucketSprite catches raindrop
+    public void rotate()
+    {
+        setOriginCenter(); // Need this Sprite class method for correct centered rotation.
+        super.rotate(rotateDirection * rotateAngle);
+    }
+
+}
