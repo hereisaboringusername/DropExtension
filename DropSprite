@@ -1,14 +1,11 @@
-ackage com.badlogic.drop;
+package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
-
 import java.util.Random;
-
 
 public class DropSprite extends Sprite
 {
@@ -16,18 +13,23 @@ public class DropSprite extends Sprite
     int rotateAngle;
     int rotateDirection; // -1 if clockwise; 1 if counterclockwise
 
-    public DropSprite()
-    {
+    public DropSprite() {
         // load the images for the droplet and the bucket, 64x64 pixels each
         dropImage = new Texture(Gdx.files.internal("droplet.png"));
+        //Q.5
+        //(13%) When creating a raindrop sprite, give it a random color tint.
+        // Project 1: Ashley Zingillioglu s1310999
+        Random randomGenerator = new Random();
+        int red = randomGenerator.nextInt(256);
+        int green = randomGenerator.nextInt(256);
+        int blue = randomGenerator.nextInt(256);
 
-        //Q.5: Project 1: Ashley Zingillioglu s1310999
-        int color= ((int)(Math.random()*16777215)) | (0xFF << 24);
-        setColor(255, 0, 0);
-        setColor(51,153,255);
-        setColor(102, 255, 102);
+        Color randomColour = new Color(red,green,blue);
 
-        //3 values for red, 3 values for blue, 3 values for green
+
+    }
+
+
         // ==> A Sprite is not drawable until its texture (region) and bounds are set
         //     (per https://v.gd/wwEZqD).
         //     The Sprite(Texture texture) constructor would take care of these details for us, but
@@ -44,29 +46,22 @@ public class DropSprite extends Sprite
             rotateDirection = 1;
         else
             rotateDirection = -1;
-        setScale(0.5f);
+// Q4 Project 1: Ashley Zingillioglu s1310999
+        // setScale(0.5f); // try
+        int min = 5;
+        int max = 10;
 
-        //Q4- Project 1: Ashley Zingillioglu s1310999
-        if (MathUtils.random(1,0) == 0)
-            rotateDirection = -1;
-        else
-            rotateDirection = 1;
-        setScale(0.75f);
-
-        if (MathUtils.random(1,1)== 0)
-            rotateDirection = 1;
-        else
-            rotateDirection = 1;
-        setScale(1f);
-
+        //Generate random int value from 50 to 100
+        System.out.println("Random value in int from "+min+" to "+max+ ":");
+        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+        setScale(random_int/10.0f);
+        System.out.println(random_int);
     } // end constructor
 
-    private void setColor(int i, int i1, int i2) {
-
-    }
 
 
-    //bucketSprite catches raindrop
+
+
     public void rotate()
     {
         setOriginCenter(); // Need this Sprite class method for correct centered rotation.
@@ -74,3 +69,5 @@ public class DropSprite extends Sprite
     }
 
 }
+
+
