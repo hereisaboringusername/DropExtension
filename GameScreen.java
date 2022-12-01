@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
    Array<DropSprite> raindrops; // Project 1
    long lastDropTime;
    int dropsGathered;
-
+   
    public GameScreen(final Drop gam) {
       this.game = gam;
 
@@ -184,15 +184,48 @@ public class GameScreen implements Screen {
          // Project 1 - Rectangle overlap collision detection
          Rectangle bucketRectangle = bucketSprite.getBoundingRectangle();
          Rectangle dropRectangle = raindrop.getBoundingRectangle();
-
          if (dropRectangle.overlaps(bucketRectangle)) {
-            //Q6: Ashley Zingillioglu s1310999
-            setColor((int)(Math.random()*16777215)) | (0xFF << 24);
-            getColor(0, 0, 0.2f, 1);
             dropsGathered++;
             dropSound.play();
             iter.remove();
          }
       } // end while
-
+       
    } //end render()
+
+   @Override
+   public void resize(int width, int height) {
+   }
+
+   @Override
+   public void show() {
+      // start the playback of the background music
+      // when the screen is shown
+      rainMusic.play();
+      //Project 1: Ashley Zingillioglu s1310999
+      rainMusic2.play();
+   }
+
+   @Override
+   public void hide() {
+   }
+
+   @Override
+   public void pause() {
+   }
+
+   @Override
+   public void resume() {
+   }
+
+   @Override
+   public void dispose() {
+      dropImage.dispose();
+      bucketImage.dispose();
+      dropSound.dispose();
+      rainMusic.dispose();
+      //Project 1: Ashley Zingillioglu s1310999
+      rainMusic2.dispose();
+   }
+
+}
